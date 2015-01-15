@@ -19,4 +19,4 @@ alias identity="cd c:/_GIT/VerifyIdentity"
 alias co="git checkout"
 alias start="git flow feature start"
 alias publish="git flow feature publish"
-alias branchCleanup="git branch --merged develop | egrep -v "develop|master" | xargs -n 1 git branch -d"
+alias branchcleanup='git branch --merged develop | egrep -v "develop|master" | xargs -n 1 git branch -d'
