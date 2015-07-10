@@ -1,5 +1,10 @@
-alias flow="git flow"
+#general linux stuff
 alias dir="ls -la"
+alias docker="sudo docker"
+
+
+#git stuff
+alias flow="git flow"
 alias go="cd c:\_GIT"
 alias stat="git status"
 alias fetch="git fetch"
