@@ -1,0 +1,11 @@
+[user]
+	name = Jay Hilden
+	email = Jay.Hilden@verifybrand.com
+[push]
+	default = simple
+[core]
+	autocrlf = false
+	safecrlf = false
+	mergeoptions = --no-edit
+[apply]
+	whitespace = nowarn
