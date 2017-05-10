@@ -3,7 +3,7 @@ alias dir="ls -la"
 alias stat="git status"
 alias fetch="git fetch"
 alias add="git add -A"
-alias commit="git commit -m"
+#alias commit="git commit -m"
 alias diff="git diff"
 alias pull="git pull"
 alias push="git push"
@@ -15,6 +15,17 @@ alias branchcleanup='git branch --merged develop | egrep -v "develop|master" | x
 
 publish () {
   git push -u origin $(git rev-parse --abbrev-ref HEAD);
+}
+
+commit () {
+  local branch=$(git rev-parse --abbrev-ref HEAD);
+  local fullmsg;
+  if [[ $branch == *"DE"* || $branch == *"US"* ]];
+    then fullmsg="$branch $1";
+  else
+    fullmsg=$1;
+  fi;
+  git commit -m "$fullmsg";
 }
 
 #vplocalconfig() {
