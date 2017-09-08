@@ -3,6 +3,7 @@
 // @namespace    optimus.assetlifecycle.tampermonkey
 // @version      0.1
 // @description  Get a URL representing the Coral Diver request to save and share with others
+//               reference: https://w.amazon.com/index.php/Coral/Diver/LinkAPI
 // @author       jarntson@ jhilden@
 // @match        https://coral.amazon.com/*
 // @grant        none
