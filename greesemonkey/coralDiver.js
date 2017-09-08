@@ -3,7 +3,7 @@
 // @namespace    optimus.assetlifecycle.tampermonkey
 // @version      0.1
 // @description  Get a URL representing the Coral Diver request to save and share with others
-// @author       Jake Arntson & Jay Hilden
+// @author       Jake Arntson
 // @match        https://coral.amazon.com/*
 // @grant        none
 // ==/UserScript==
@@ -33,21 +33,31 @@
 
     function createUrl()
     {
-        var url = window.location.href.substr(0, window.location.href.indexOf("explorer")) + "explorer/";
-        var editor = ace.edit("request-input-editor");  
-        url = url + "?request=" + btoa(editor.getValue());
+        var sourceUrl = window.location.href;
+        var url = sourceUrl.substr(0, sourceUrl.indexOf("explorer")) + "explorer/op/";
+        var operation = $('#operation_chosen span')[0].innerHTML;
+        url += operation.substr(0, operation.indexOf(' (...)'));
 
-        var endpoint = document.getElementById('target_uri_chosen').getElementsByTagName('span')[0].innerHTML;
+        var params = {};
 
-        url = url + "&endpoint=" + encodeURIComponent(endpoint);
+        //ace is the built in editor tool, we have access to it.
+        var editorText = ace.edit("request-input-editor").getValue();
+        params.request = btoa(editorText);
 
-        copyToClipboard(url); 
+        var endpoint = $('#target_uri_chosen span')[0].innerHTML;
+        params.endpoint = encodeURIComponent(endpoint);
+
+        params.protocol = $('#protocol').val();
+        params.auth = $('#auth_type').val();
+        params.cardinality = $("#execution-behavior").val();
+
+        copyToClipboard(url + "?" + $.param(params));
     }
 
     function copyToClipboard(text) {
         textbox.val(text);
         textbox.show();
-        textbox.select();        
+        textbox.select();
         document.execCommand("copy");
         textbox.hide();
         msg.fadeIn();
@@ -58,4 +68,3 @@
 
     }
 })();
-
