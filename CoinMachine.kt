@@ -1,5 +1,3 @@
-package com.amazon.relayassetservice.api.model
-
 import java.util.*
 
 enum class Coin(val value: Int, val order: Int) {
@@ -17,7 +15,7 @@ enum class Coin(val value: Int, val order: Int) {
 }
 
 class CoinMachine(private var available: MutableMap<Coin, Int>) {
-    fun makeChange(amount: Int): List<Coin> { 
+    fun makeChange(amount: Int): List<Coin> { //throw if can't make change
         val coinsToReturn = Stack<Coin>()
         val currentState = available.toMutableMap()//make copy
         var amountLeft = amount
@@ -27,7 +25,7 @@ class CoinMachine(private var available: MutableMap<Coin, Int>) {
             val nextCoin = getNextCoin(amountLeft, currentState, currentCoin)
             if (nextCoin == null) {
                 if (coinsToReturn.size == 0) {
-                    return emptyList()
+                    throw IllegalStateException("could not get next coin, could not pop anything off the top")
                 }
                 val popped = coinsToReturn.pop()
                 println("backtracking, popping off $popped")
@@ -39,6 +37,11 @@ class CoinMachine(private var available: MutableMap<Coin, Int>) {
                 currentState[nextCoin] = currentState[nextCoin]!! - 1
                 coinsToReturn.push(nextCoin)
             }
+        }
+
+        if (amountLeft != 0) {
+            //we didn't make it
+            throw IllegalStateException("made it to the end, but still had $amountLeft and couldn't complete")
         }
         available = currentState
         return coinsToReturn
