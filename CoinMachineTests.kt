@@ -1,5 +1,3 @@
-package com.amazon.relayassetservice.model
-
 import com.amazon.relayassetservice.api.model.Coin
 import com.amazon.relayassetservice.api.model.CoinMachine
 import org.junit.jupiter.api.Test
